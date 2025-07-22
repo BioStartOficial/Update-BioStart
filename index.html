@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BioStart Admin - BioCarteira</title>
+    <title>BioStart Admin</title>
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts - Poppins (ou Roboto, como solicitado) -->
+    <!-- Google Fonts - Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- React CDN -->
@@ -39,8 +39,8 @@
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
 
-        // --- CONFIGURAÇÃO DO BACKEND (mockup, não funcional) ---
-        const BACKEND_URL = "https://mockup-backend.com"; 
+        // --- CONFIGURAÇÃO DO BACKEND (AGORA APONTA PARA SEU SERVIDOR REAL NO RENDER) ---
+        const BACKEND_URL = "https://bio-teste.onrender.com"; // SEU SERVIDOR REAL NO RENDER
 
         // --- Ícones (SVG como componentes) ---
         const HomeIcon = (props) => (<svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>);
@@ -56,6 +56,61 @@
         const SparklesIcon = (props) => (<svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.272 1.272L3 12l5.813 1.912a2 2 0 0 1 1.272 1.272L12 21l1.912-5.813a2 2 0 0 1 1.272-1.272L21 12l-5.813-1.912a2 2 0 0 1-1.272-1.272Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M2.75 7.25h4.5"/><path d="M16.25 16.75h4.5"/></svg>);
         const LogOutIcon = (props) => (<svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>);
         const WalletIcon = (props) => (<svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h12a2 2 0 0 1 0 4H5a2 2 0 0 0 0 4h12a2 2 0 0 0 2-2v-3"/><path d="M2 7v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/></svg>);
+        
+        // Novo Ícone: DollarSignIcon (para representar créditos ou valor)
+        const DollarSignIcon = (props) => (<svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>);
+
+
+        // Novo Componente: CarbonCreditManagement
+        const CarbonCreditManagement = ({ showToast }) => {
+            // Dados simulados para o mockup
+            const simulatedCredits = {
+                totalCredits: '5.200',
+                co2Equivalent: '52.000 kg',
+                lastVerification: '2025-06-30',
+                pendingVerifications: '3'
+            };
+
+            const handleGenerateReport = () => {
+                showToast('Relatório de Créditos de Carbono gerado! (Mockup)', 'success');
+            };
+
+            return (
+                <div className="bg-white p-6 rounded-lg shadow-xl">
+                    <h2 className="text-3xl font-bold text-gray-800 mb-6">Gestão de Crédito de Carbono</h2>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        {/* Card de Créditos Totais */}
+                        <div className="bg-green-50 p-6 rounded-lg border border-green-200 text-center">
+                            <DollarSignIcon className="w-12 h-12 text-green-600 mx-auto mb-3" />
+                            <p className="text-2xl font-bold text-gray-800">{simulatedCredits.totalCredits}</p>
+                            <p className="text-sm text-gray-600">Créditos de Carbono Gerados</p>
+                        </div>
+
+                        {/* Card de CO2 Equivalente */}
+                        <div className="bg-blue-50 p-6 rounded-lg border border-blue-200 text-center">
+                            <svg className="w-12 h-12 text-blue-600 mx-auto mb-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22c-3.314 0-6-2.686-6-6s2.686-6 6-6 6 2.686 6 6-2.686 6-6 6z"/><path d="M12 10V2l-4 4m8-4l-4 4"/></svg> {/* Ícone de CO2 */}
+                            <p className="text-2xl font-bold text-gray-800">{simulatedCredits.co2Equivalent}</p>
+                            <p className="text-sm text-gray-600">CO₂ Equivalente Evitado</p>
+                        </div>
+                    </div>
+
+                    {/* Detalhes e Ações */}
+                    <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                        <h3 className="text-xl font-semibold text-gray-700 mb-4">Detalhes e Verificações</h3>
+                        <p className="text-gray-600 mb-2">Última Verificação: <span className="font-medium">{simulatedCredits.lastVerification}</span></p>
+                        <p className="text-gray-600 mb-4">Verificações Pendentes: <span className="font-medium text-orange-600">{simulatedCredits.pendingVerifications}</span></p>
+
+                        <button 
+                            onClick={handleGenerateReport} 
+                            className="w-full bg-[#4CAF50] hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform flex items-center justify-center"
+                        >
+                            <BarChartIcon className="w-5 h-5 mr-2" /> Gerar Relatório de Créditos
+                        </button>
+                    </div>
+                </div>
+            );
+        };
 
 
         // --- Componentes Reutilizáveis de UI ---
@@ -114,7 +169,7 @@
             <li className="mb-2">
                 <button
                     onClick={onClick}
-                    className={`flex items-center w-full p-3 rounded-lg transition-all duration-200 ${isActive ? 'bg-[#4CAF50] font-semibold text-white' : 'hover:bg-gray-700 text-gray-200'}`}
+                    className={`flex items-center w-full p-3 rounded-lg transition-all duration-200 ${isActive ? 'bg-gray-700 font-semibold text-white' : 'hover:bg-gray-700 text-gray-200'}`}
                 >
                     {icon}
                     <span className="ml-3">{text}</span>
@@ -254,26 +309,23 @@
 
             const fetchContent = async () => {
                 setIsLoading(true);
-                // Mockup: Apenas simula carregamento
-                setTimeout(() => {
-                    const mockData = {
-                        'educationalTexts': [
-                            { id: '1', title: 'O que é Biogás?', content: 'Biogás é um combustível...', imageUrl: 'https://placehold.co/100x100/green/white?text=Img1' },
-                            { id: '2', title: 'Vantagens do Biodigestor', content: 'Reduz resíduos e gera energia...', imageUrl: 'https://placehold.co/100x100/green/white?text=Img2' },
-                        ],
-                        'quizzes': [
-                            { id: 'q1', title: 'Quiz Básico', questions: '[{"question":"Q1","options":["A","B"],"correct":0}]' },
-                        ],
-                        'checklists': [
-                            { id: 'c1', title: 'Checklist Inicial', items: '[{"text":"Item 1"},{"text":"Item 2"}]' },
-                        ],
-                        'simulations': [
-                            { id: 's1', title: 'Simulação Padrão', description: 'Dados de simulação.' },
-                        ]
-                    };
-                    setContent(mockData[activeTab] || []);
+                try {
+                    const endpoint = contentConfig[activeTab].endpoint;
+                    const response = await fetch(`${BACKEND_URL}/content/${endpoint}`);
+                    const data = await response.json();
+                    if (data.success) {
+                        setContent(data.data);
+                    } else {
+                        showToast(data.error || 'Erro ao carregar conteúdo.', 'error');
+                        setContent([]);
+                    }
+                } catch (error) {
+                    console.error("Erro ao carregar conteúdo:", error);
+                    showToast('Erro de conexão ao carregar conteúdo.', 'error');
+                    setContent([]);
+                } finally {
                     setIsLoading(false);
-                }, 500);
+                }
             };
 
             useEffect(() => {
@@ -281,9 +333,21 @@
             }, [activeTab]);
 
             const handleDelete = (id) => {
-                setConfirmAction(() => () => {
-                    showToast('Item excluído com sucesso! (Mockup)', 'success');
-                    setContent(prev => prev.filter(item => item.id !== id));
+                setConfirmAction(() => async () => {
+                    const { endpoint } = contentConfig[activeTab];
+                    try {
+                        const response = await fetch(`${BACKEND_URL}/content/${endpoint}/${id}`, { method: 'DELETE' });
+                        const data = await response.json();
+                        if (data.success) {
+                            showToast('Item excluído com sucesso!', 'success');
+                            fetchContent();
+                        } else {
+                            showToast(data.error || 'Erro ao excluir.', 'error');
+                        }
+                    } catch (error) {
+                        console.error("Erro ao excluir item:", error);
+                        showToast('Erro de conexão ao excluir.', 'error');
+                    }
                 });
                 setIsConfirmModalOpen(true);
             };
@@ -303,10 +367,43 @@
             };
             
             const handleSave = async () => {
-                // Mockup: Apenas simula salvamento
-                showToast(`Item ${isEditing ? 'atualizado' : 'salvo'} com sucesso! (Mockup)`, 'success');
-                setIsModalOpen(false);
-                fetchContent(); // Recarrega para mostrar a mudança no mockup
+                const { endpoint } = contentConfig[activeTab];
+                const url = isEditing ? `${BACKEND_URL}/content/${endpoint}/${currentItem.id}` : `${BACKEND_URL}/content/${endpoint}`;
+                const method = isEditing ? 'PATCH' : 'POST';
+                
+                let body = { ...currentItem };
+                if (activeTab === 'quizzes' || activeTab === 'checklists') {
+                    try {
+                        const parsedContent = JSON.parse(body.content);
+                        if (activeTab === 'quizzes') body.questions = parsedContent;
+                        if (activeTab === 'checklists') body.items = parsedContent;
+                        delete body.content; // Remove a string original para evitar duplicidade
+                    } catch (e) {
+                        showToast('Formato JSON inválido no conteúdo.', 'error'); return;
+                    }
+                } else if (activeTab === 'educationalTexts') {
+                    // Para Textos Educativos, garantir que o campo 'text' seja 'content'
+                    body.text = body.content; 
+                }
+                
+                try {
+                    const response = await fetch(url, {
+                        method: method,
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(body)
+                    });
+                    const data = await response.json();
+                    if (data.success) {
+                        showToast(`Item ${isEditing ? 'atualizado' : 'salvo'} com sucesso!`, 'success');
+                        setIsModalOpen(false);
+                        fetchContent(); // Recarrega para mostrar a mudança
+                    } else {
+                        showToast(data.error || 'Erro ao salvar.', 'error');
+                    }
+                } catch (error) {
+                    console.error("Erro ao salvar item:", error);
+                    showToast('Erro de conexão ao salvar.', 'error');
+                }
             };
 
             const openAiModal = () => {
@@ -322,14 +419,29 @@
                 }
                 setIsGenerating(true);
                 setGeneratedContent('');
-                setTimeout(() => {
-                    const generated = activeTab === 'quizzes' 
-                        ? JSON.stringify([{question: `Mock Q sobre ${aiTopic}`, options: ["A","B","C","D"], correct: 0}], null, 2)
-                        : `Conteúdo simulado sobre ${aiTopic} gerado por IA.`;
-                    setGeneratedContent(generated);
-                    showToast('Conteúdo gerado com sucesso! (Mockup)', 'success');
+                const endpoint = activeTab === 'quizzes' ? 'generate-quiz-questions-ai' : 'generate-content-ai';
+                try {
+                    const response = await fetch(`${BACKEND_URL}/${endpoint}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ topic: aiTopic })
+                    });
+                    const data = await response.json();
+                    if (data.success) {
+                        const contentToDisplay = typeof data.generatedText === 'string'
+                            ? data.generatedText
+                            : JSON.stringify(data.generatedQuestions, null, 2); // Pretty print JSON for quizzes
+                        setGeneratedContent(contentToDisplay);
+                        showToast('Conteúdo gerado com sucesso!', 'success');
+                    } else {
+                        showToast(data.error || 'Erro ao gerar conteúdo.', 'error');
+                    }
+                } catch (error) {
+                    console.error("Erro ao gerar conteúdo com IA:", error);
+                    showToast('Erro de conexão com a IA.', 'error');
+                } finally {
                     setIsGenerating(false);
-                }, 1500);
+                }
             };
 
             const TabButton = ({ text, isActive, onClick }) => (
@@ -767,7 +879,8 @@
                     case 'userManagement': return <UserManagement showToast={showToast} />;
                     case 'userDoubts': return <UserDoubts showToast={showToast} />;
                     case 'reports': return <Reports showToast={showToast} />;
-                    case 'bioWalletValidations': return <BioWalletValidations showToast={showToast} />; {/* NOVA TELA */}
+                    case 'bioWalletValidations': return <BioWalletValidations showToast={showToast} />;
+                    case 'carbonCreditManagement': return <CarbonCreditManagement showToast={showToast} />; {/* NOVA TELA */}
                     default: return <Dashboard />;
                 }
             };
@@ -791,7 +904,8 @@
                                         <NavItem icon={<UsersIcon className="w-5 h-5" />} text="Gestão de Usuários" isActive={activeScreen === 'userManagement'} onClick={() => setActiveScreen('userManagement')} />
                                         <NavItem icon={<MessageSquareIcon className="w-5 h-5" />} text="Dúvidas dos Usuários" isActive={activeScreen === 'userDoubts'} onClick={() => setActiveScreen('userDoubts')} />
                                         <NavItem icon={<BarChartIcon className="w-5 h-5" />} text="Relatórios" isActive={activeScreen === 'reports'} onClick={() => setActiveScreen('reports')} />
-                                        <NavItem icon={<WalletIcon className="w-5 h-5" />} text="Validações BioCarteira" isActive={activeScreen === 'bioWalletValidations'} onClick={() => setActiveScreen('bioWalletValidations')} /> {/* NOVO ITEM */}
+                                        <NavItem icon={<WalletIcon className="w-5 h-5" />} text="Validações BioCarteira" isActive={activeScreen === 'bioWalletValidations'} onClick={() => setActiveScreen('bioWalletValidations')} />
+                                        <NavItem icon={<DollarSignIcon className="w-5 h-5" />} text="Crédito de Carbono" isActive={activeScreen === 'carbonCreditManagement'} onClick={() => setActiveScreen('carbonCreditManagement')} /> {/* NOVO ITEM */}
                                     </ul>
                                 </nav>
                             </div>
